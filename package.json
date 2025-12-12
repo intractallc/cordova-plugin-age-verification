@@ -1,0 +1,56 @@
+{
+  "name": "cordova-plugin-age-verification",
+  "version": "1.0.0",
+  "description": "Cross-platform age verification plugin using Apple DeclaredAgeRange API (iOS 26+) and Google Play Age Signals API (Android)",
+  "main": "www/AgeVerification.js",
+  "types": "types/index.d.ts",
+  "cordova": {
+    "id": "cordova-plugin-age-verification",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/intractallc/cordova-plugin-age-verification.git"
+  },
+  "keywords": [
+    "cordova",
+    "ios",
+    "android",
+    "apple",
+    "google",
+    "age-verification",
+    "declaredagerange",
+    "play-age-signals",
+    "parental-controls",
+    "privacy",
+    "child-safety",
+    "texas-sb2420",
+    "utah-sb287",
+    "louisiana-act440",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "author": "Intract LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/intractallc/cordova-plugin-age-verification/issues"
+  },
+  "homepage": "https://github.com/intractallc/cordova-plugin-age-verification#readme",
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": {
+        "cordova": ">=10.0.0",
+        "cordova-ios": ">=7.0.0",
+        "cordova-android": ">=10.0.0"
+      }
+    }
+  },
+  "peerDependencies": {
+    "cordova-ios": ">=7.0.0",
+    "cordova-android": ">=10.0.0"
+  }
+}

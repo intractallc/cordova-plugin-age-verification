@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-age-verification"
+        version="1.0.0">
+
+    <name>Age Verification</name>
+    <description>Cross-platform age verification plugin using Apple DeclaredAgeRange API (iOS 26+) and Google Play Age Signals API (Android)</description>
+    <license>MIT</license>
+    <keywords>cordova,ios,android,apple,google,age,verification,declaredagerange,play-age-signals,parental,controls</keywords>
+    <author>Intract LLC</author>
+
+    <engines>
+        <engine name="cordova-ios" version=">=7.0.0" />
+        <engine name="cordova-android" version=">=10.0.0" />
+    </engines>
+
+    <!-- Dependency for Swift support (iOS only) -->
+    <dependency id="cordova-plugin-add-swift-support" version="^2.0.2" />
+
+    <js-module src="www/AgeVerification.js" name="AgeVerification">
+        <clobbers target="AgeVerification" />
+    </js-module>
+
+    <!-- iOS Configuration -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="AgeVerification">
+                <param name="ios-package" value="AgeVerificationIOS" />
+            </feature>
+        </config-file>
+
+        <!-- Swift version configuration -->
+        <config-file target="config.xml" parent="/*">
+            <preference name="SwiftVersion" value="5.0" />
+        </config-file>
+
+        <!-- Swift source file -->
+        <source-file src="src/ios/AgeVerificationIOS.swift" />
+
+        <!-- Bridging header for Swift/Objective-C interop -->
+        <header-file src="src/ios/AgeVerification-Bridging-Header.h" type="BridgingHeader" />
+
+        <!-- Add the DeclaredAgeRange entitlement -->
+        <config-file target="*/Entitlements-Debug.plist" parent="com.apple.developer.declared-age-range">
+            <true />
+        </config-file>
+        <config-file target="*/Entitlements-Release.plist" parent="com.apple.developer.declared-age-range">
+            <true />
+        </config-file>
+
+        <!-- Set deployment target to iOS 26 minimum for DeclaredAgeRange -->
+        <preference name="deployment-target" value="26.0" />
+
+        <!-- Framework dependencies - weak link to support older iOS gracefully -->
+        <framework src="DeclaredAgeRange" type="system" weak="true" />
+    </platform>
+
+    <!-- Android Configuration -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="AgeVerification">
+                <param name="android-package" value="com.anthropic.ageverification.AgeVerificationAndroid" />
+            </feature>
+        </config-file>
+
+        <!-- Add Play Age Signals dependency to build.gradle -->
+        <framework src="com.google.android.play:age-signals:0.0.2" />
+
+        <!-- Java source files -->
+        <source-file src="src/android/AgeVerificationAndroid.java" target-dir="src/com/anthropic/ageverification" />
+
+        <!-- Minimum SDK version (API 23 required for Play Age Signals) -->
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-sdk android:minSdkVersion="23" />
+        </config-file>
+
+        <!-- Internet permission for API calls -->
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+    </platform>
+
+</plugin>
